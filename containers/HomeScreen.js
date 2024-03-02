@@ -103,7 +103,6 @@ const HomeScreen = ({ navigation }) => {
           )}
         />
       </ScrollView>
-      <Text>BottomTab à ajouter</Text>
     </View>
   );
 };

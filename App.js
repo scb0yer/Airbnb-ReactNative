@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,6 +16,7 @@ import SigninScreen from "./containers/SigninScreen";
 import SignupScreen from "./containers/SignupScreen";
 import RoomScreen from "./containers/RoomScreen";
 import ProfilScreen from "./containers/ProfilScreen";
+import AroundMeScreen from "./containers/AroundMeScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -58,7 +62,16 @@ export default function App() {
           {/* ------------------------------------------- */}
           {/* -- PREMIER ONGLET ------------------------- */}
           {/* ------------------------------------------- */}
-          <Tab.Screen name="homeTab" options={{ headerShown: false }}>
+          <Tab.Screen
+            name="homeTab"
+            options={{
+              headerShown: false,
+              title: "Home",
+              tabBarIcon: () => {
+                return <FontAwesome name="home" size={24} color="black" />;
+              },
+            }}
+          >
             {() => (
               <Stack.Navigator>
                 {/* -- Premier écran de l'onglet 1 ------ */}
@@ -86,7 +99,29 @@ export default function App() {
               </Stack.Navigator>
             )}
           </Tab.Screen>
-          <Tab.Screen name="profil" component={ProfilScreen} />
+          <Tab.Screen
+            name="Around Me"
+            component={AroundMeScreen}
+            options={{
+              headerShown: false,
+              tabBarIcon: () => {
+                return (
+                  <MaterialIcons name="where-to-vote" size={24} color="black" />
+                );
+              },
+            }}
+          />
+          <Tab.Screen
+            name="profil"
+            component={ProfilScreen}
+            options={{
+              title: "Profil",
+              headerShown: false,
+              tabBarIcon: () => {
+                return <Ionicons name="person" size={24} color="black" />;
+              },
+            }}
+          />
         </Tab.Navigator>
       )}
     </NavigationContainer>

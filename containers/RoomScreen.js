@@ -27,6 +27,7 @@ const RoomScreen = ({ navigation, route }) => {
         );
         setData(data);
         setIsLoading(false);
+        console.log(route.params.id);
       } catch (error) {
         console.log(error.message);
         setWarning(error.message);
@@ -42,13 +43,14 @@ const RoomScreen = ({ navigation, route }) => {
       {!data ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
+        <View>
           <View style={styles.centerItems}>
             <View style={styles.relative}>
-              <ScrollView horizontal={true}>
+              <View>
                 <FlatList
+                  horizontal
                   data={data.photos}
-                  keyExtractor={(item) => String(item.id)}
+                  keyExtractor={(item) => String(item.picture_id)}
                   renderItem={({ item }) => (
                     <Image
                       source={{ uri: item.url }}
@@ -56,12 +58,7 @@ const RoomScreen = ({ navigation, route }) => {
                     />
                   )}
                 />
-              </ScrollView>
-
-              <Image
-                source={{ uri: data.photos[0].url }}
-                style={styles.miniature}
-              />
+              </View>
               <ImageBackground style={styles.price}>
                 <Text style={styles.white}>{data.price} €</Text>
               </ImageBackground>
@@ -85,7 +82,12 @@ const RoomScreen = ({ navigation, route }) => {
                         );
                       } else {
                         return (
-                          <AntDesign name="star" size={20} color="#BBBBBB" />
+                          <AntDesign
+                            key={index}
+                            name="star"
+                            size={20}
+                            color="#BBBBBB"
+                          />
                         );
                       }
                     })}
@@ -102,7 +104,7 @@ const RoomScreen = ({ navigation, route }) => {
               <Text numberOfLines={3}>{data.description}</Text>
             </View>
           </View>
-        </ScrollView>
+        </View>
       )}
     </View>
   );

@@ -30,7 +30,9 @@ export default function SignupScreen({ setToken, navigation }) {
             "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/sign_up",
             { email, password, username, description }
           );
-          setToken(data.token);
+          setIsLoading(false);
+          setToken(data.token, data.id);
+          alert("Tu es bien connecté");
         } catch (error) {
           console.log(error.message);
           setWarning(error.message);

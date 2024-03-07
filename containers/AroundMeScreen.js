@@ -9,7 +9,10 @@ import axios from "axios";
 
 const AroundMeScreen = ({ navigation }) => {
   const [locations, setLocations] = useState([]);
-  const [userCoords, setUserCoords] = useState({});
+  const [userCoords, setUserCoords] = useState({
+    latitude: 45.762641,
+    longitude: 4.825297,
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [geolocalised, setGeolocalised] = useState();
 
@@ -21,9 +24,9 @@ const AroundMeScreen = ({ navigation }) => {
       const newLocations = [];
       for (let d = 0; d < data.length; d++) {
         const newLocation = {
-          id: d,
-          latitude: data[d].location[0],
-          longitude: data[d].location[1],
+          id: data[d]._id,
+          latitude: data[d].location[1],
+          longitude: data[d].location[0],
         };
         newLocations.push(newLocation);
       }
@@ -72,7 +75,7 @@ const AroundMeScreen = ({ navigation }) => {
             <MapView
               style={styles.map}
               provider={PROVIDER_GOOGLE}
-              initialRegion={{
+              region={{
                 latitude: userCoords.latitude,
                 longitude: userCoords.longitude,
                 latitudeDelta: 0.2,
@@ -81,7 +84,6 @@ const AroundMeScreen = ({ navigation }) => {
               // showsUserLocation
             >
               {locations.map((coord) => {
-                console.log("Coord", coord);
                 return (
                   <Marker
                     key={coord.id}
@@ -89,7 +91,12 @@ const AroundMeScreen = ({ navigation }) => {
                       latitude: coord.latitude,
                       longitude: coord.longitude,
                     }}
+                    image={require("../assets/marker.png")}
                     title={coord.title}
+                    onPress={() => {
+                      console.log(coord.id);
+                      navigation.navigate("room", { id: coord.id });
+                    }}
                   />
                 );
               })}
@@ -128,5 +135,9 @@ const styles = StyleSheet.create({
   map: {
     height: 500,
     width: 350,
+  },
+  marker: {
+    height: 5,
+    width: 5,
   },
 });

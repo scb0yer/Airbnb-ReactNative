@@ -30,7 +30,8 @@ const SigninScreen = ({ setToken }) => {
           { email, password }
         );
         setIsLoading(false);
-        setToken(data.token);
+        console.log(data.id);
+        setToken(data.token, data.id);
         alert("Tu es bien connecté");
       } catch (error) {
         console.log(error.message);

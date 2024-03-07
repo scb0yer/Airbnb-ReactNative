@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.borderBottom}>
         <Image source={require("../assets/logo.webp")} style={styles.logo} />
       </View>
-      <ScrollView>
+      <View>
         <FlatList
           data={data}
           keyExtractor={(item) => String(item._id)}
@@ -102,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         />
-      </ScrollView>
+      </View>
     </View>
   );
 };
